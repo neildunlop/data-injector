@@ -35,6 +35,16 @@ public class DemoFirer {
         long remainingDelay = future.getDelay(TimeUnit.MILLISECONDS);
         System.out.printf("Remaining Delay: %sms", remainingDelay);
 
+        //get a list of events to fire with times
+        //log the start time of the whole thing
+        //for each message, calculate the diff from the start time to the time of the event
+        //schedule the tasks
+
+        //(DO THIS)
+        //OR
+        //grab the first event, calc the time between its start and now.. schedule accordingly
+        //grab the next event, repeat.. if the time between its start and now is <=0 then just schedule for now
+
 
     }
 
