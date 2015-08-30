@@ -3,6 +3,7 @@ package com.datinko.prototype.datagenerator.core;
 import com.datinko.prototype.datagenerator.core.factories.CustomerFactory;
 import com.datinko.prototype.datagenerator.core.factories.LocationFactory;
 import com.datinko.prototype.datagenerator.core.factories.SelectionFactory;
+import org.joda.money.Money;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -22,12 +23,14 @@ public class BetTest {
         Customer testCustomer = CustomerFactory.getBobSmith();
         Location testLocation = LocationFactory.getWHLeedsMerrion();
         Selection testSelection = SelectionFactory.getMiddlesbroughToWin();
+        Money testStake = Money.parse("GBP 10.00");
 
         Bet testBet = Bet.newBuilder()
                 .withId(id)
                 .withCustomer(testCustomer)
                 .withLocation(testLocation)
                 .withSelection(testSelection)
+                .withStake(testStake)
                 .build();
 
         assertNotNull(testBet);

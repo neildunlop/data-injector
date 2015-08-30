@@ -1,49 +1,64 @@
 package com.datinko.prototype.datagenerator.core.firer;
 
-import java.io.Console;
+import com.datinko.prototype.datagenerator.core.Bet;
+import com.datinko.prototype.datagenerator.core.factories.BetFactory;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Neil on 26/08/2015.
+ * A simple event firer that produces events.  Events can be replayed from a historical log.
  */
 public class DemoFirer {
 
+    private static List<Bet> bets = new ArrayList<>();
+
     public static void main(String[] args) throws InterruptedException {
+
+        bets.add(BetFactory.getBet1());
+        bets.add(BetFactory.getBet2());
+        bets.add(BetFactory.getBet3());
+
         DemoFirer firer = new DemoFirer();
         firer.fireEvents();
     }
 
+
+
     public void fireEvents() throws InterruptedException {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(100);  //means a limit of 100 concurrent runnables
 
-        //create a runnable task that we can execute
-        Runnable task = () -> {
-            System.out.println("Scheduling: " + System.nanoTime());
-            System.out.println("yo!");
-        };
+        for(Bet bet : bets) {
+            //create a runnable task that we can execute
+            Runnable task = () -> {
+                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+                System.out.println("Firing bet " + bet.getId() + " at "+ DateTime.now().toString(fmt));
+            };
 
-        //Schedule the runnable task to run after a delay of three seconds
-        ScheduledFuture<?> future = executor.schedule(task, 3, TimeUnit.SECONDS);
+            DateTime d1 = DateTime.now();
+            DateTime d2 = bet.getTimestamp();
 
-        //sleep for 2 seconds
-        TimeUnit.MILLISECONDS.sleep(1337);
+            long diffInMillis = d2.getMillis() - d1.getMillis();
 
-        //print out how long our future has left before it will execute
-        long remainingDelay = future.getDelay(TimeUnit.MILLISECONDS);
-        System.out.printf("Remaining Delay: %sms", remainingDelay);
+            if(diffInMillis<0) {
+                diffInMillis = 0;
+            }
 
-        //get a list of events to fire with times
-        //log the start time of the whole thing
-        //for each message, calculate the diff from the start time to the time of the event
-        //schedule the tasks
+            //Schedule the runnable task to run after a delay of three seconds
+            ScheduledFuture<?> future = executor.schedule(task, diffInMillis, TimeUnit.MILLISECONDS);
+        }
 
-        //(DO THIS)
-        //OR
-        //grab the first event, calc the time between its start and now.. schedule accordingly
-        //grab the next event, repeat.. if the time between its start and now is <=0 then just schedule for now
+
+
+
+
 
 
     }
