@@ -1,5 +1,6 @@
 package com.datinko.prototype.datagenerator.core;
 
+import com.datinko.prototype.datagenerator.core.factories.MarketFactory;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -16,24 +17,21 @@ public class SelectionTest {
     public void canCreateSelection() {
 
         UUID id = UUID.randomUUID();
-        String event = "Middlesbrough Vs Leeds";
-        String market = "To Win";
-        String selection = "Middlesbrough";
+        Market market = MarketFactory.getToWin();
+        String selectionValue = "Middlesbrough";
         String price = "2/1";
 
         Selection testSelection = Selection.newBuilder()
                 .withId(id)
-                .withEvent(event)
                 .withMarket(market)
-                .withSelection(selection)
+                .withName(selectionValue)
                 .withPrice(price)
                 .build();
 
         assertNotNull(testSelection);
         assertEquals(id, testSelection.getId());
-        assertEquals(event, testSelection.getEvent());
         assertEquals(market, testSelection.getMarket());
-        assertEquals(selection, testSelection.getSelection());
+        assertEquals(selectionValue, testSelection.getSelectionValue());
         assertEquals(price, testSelection.getPrice());
     }
 

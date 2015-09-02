@@ -1,9 +1,9 @@
 package com.datinko.prototype.datagenerator.core;
 
+import java.util.UUID;
+
 import org.joda.money.Money;
 import org.joda.time.DateTime;
-
-import java.util.UUID;
 
 /**
  * Representation of a bet placed by a customer.
@@ -16,7 +16,6 @@ public class Bet {
     protected final Location location;
     protected final Selection selection;
     protected final Money stake;
-    protected final ChannelType channel;
 
     public UUID getId() {
         return id;
@@ -42,10 +41,6 @@ public class Bet {
         return stake;
     }
 
-    public ChannelType getChannel() {
-        return channel;
-    }
-
     private Bet(Builder builder) {
         id = builder.id;
         timestamp = builder.timestamp;
@@ -53,7 +48,6 @@ public class Bet {
         location = builder.location;
         selection = builder.selection;
         stake = builder.stake;
-        channel = builder.channel;
     }
 
     public static Builder newBuilder() {
@@ -68,19 +62,16 @@ public class Bet {
         builder.location = copy.location;
         builder.selection = copy.selection;
         builder.stake = copy.stake;
-        builder.channel = copy.channel;
         return builder;
     }
 
     public static final class Builder {
-
         private UUID id;
         private DateTime timestamp;
         private Customer customer;
         private Location location;
         private Selection selection;
         private Money stake;
-        private ChannelType channel;
 
         private Builder() {
         }
@@ -110,18 +101,13 @@ public class Bet {
             return this;
         }
 
+        public Bet build() {
+            return new Bet(this);
+        }
+
         public Builder withStake(Money val) {
             stake = val;
             return this;
-        }
-
-        public Builder withChannel(ChannelType val) {
-            channel = val;
-            return this;
-        }
-
-        public Bet build() {
-            return new Bet(this);
         }
     }
 

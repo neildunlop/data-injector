@@ -1,5 +1,7 @@
 package com.datinko.prototype.datagenerator.core;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -8,37 +10,37 @@ import java.util.UUID;
 public class Selection {
 
     protected final UUID id;
-    protected final String selection;
-    protected final String market;
-    protected final String event;
+    protected final String selectionValue;
     protected final String price;
+    protected final Market market;
+    protected final Collection<Bet> bets;
 
     public UUID getId() {
         return id;
     }
 
-    public String getSelection() {
-        return selection;
-    }
-
-    public String getMarket() {
-        return market;
-    }
-
-    public String getEvent() {
-        return event;
+    public String getSelectionValue() {
+        return selectionValue;
     }
 
     public String getPrice() {
         return price;
     }
 
+    public Market getMarket() {
+        return market;
+    }
+
+    public Collection<Bet> getBets() {
+        return Collections.unmodifiableCollection(bets);
+    }
+
     private Selection(Builder builder) {
         id = builder.id;
-        selection = builder.selection;
-        market = builder.market;
-        event = builder.event;
+        selectionValue = builder.selectionValue;
         price = builder.price;
+        market = builder.market;
+        bets = builder.bets;
     }
 
     public static Builder newBuilder() {
@@ -48,21 +50,20 @@ public class Selection {
     public static Builder newBuilder(Selection copy) {
         Builder builder = new Builder();
         builder.id = copy.id;
-        builder.selection = copy.selection;
-        builder.market = copy.market;
-        builder.event = copy.event;
+        builder.selectionValue = copy.selectionValue;
         builder.price = copy.price;
+        builder.market = copy.market;
+        builder.bets = copy.bets;
         return builder;
     }
 
 
     public static final class Builder {
-
         private UUID id;
-        private String selection;
-        private String market;
-        private String event;
+        private String selectionValue;
         private String price;
+        private Market market;
+        private Collection<Bet> bets;
 
         private Builder() {
         }
@@ -72,23 +73,23 @@ public class Selection {
             return this;
         }
 
-        public Builder withSelection(String val) {
-            selection = val;
-            return this;
-        }
-
-        public Builder withMarket(String val) {
-            market = val;
-            return this;
-        }
-
-        public Builder withEvent(String val) {
-            event = val;
+        public Builder withName(String val) {
+            selectionValue = val;
             return this;
         }
 
         public Builder withPrice(String val) {
             price = val;
+            return this;
+        }
+
+        public Builder withMarket(Market val) {
+            market = val;
+            return this;
+        }
+
+        public Builder withBets(Collection<Bet> val) {
+            bets = val;
             return this;
         }
 
