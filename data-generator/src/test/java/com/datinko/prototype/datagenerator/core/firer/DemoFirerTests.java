@@ -9,6 +9,8 @@ public class DemoFirerTests {
 
     @Test
     public void canFireEvents() throws InterruptedException {
+
+        //yes I know this is a sucky test
         DemoFirer firer = new DemoFirer();
         firer.fireEvents();
     }

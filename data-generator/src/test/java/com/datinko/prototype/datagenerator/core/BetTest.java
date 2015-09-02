@@ -3,7 +3,9 @@ package com.datinko.prototype.datagenerator.core;
 import com.datinko.prototype.datagenerator.core.factories.CustomerFactory;
 import com.datinko.prototype.datagenerator.core.factories.LocationFactory;
 import com.datinko.prototype.datagenerator.core.factories.SelectionFactory;
+import junit.framework.TestCase;
 import org.joda.money.Money;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -24,6 +26,7 @@ public class BetTest {
         Location testLocation = LocationFactory.getWHLeedsMerrion();
         Selection testSelection = SelectionFactory.getMiddlesbroughToWin();
         Money testStake = Money.parse("GBP 20");
+        DateTime timestamp = DateTime.now();
 
         Bet testBet = Bet.newBuilder()
                 .withId(id)
@@ -31,6 +34,7 @@ public class BetTest {
                 .withLocation(testLocation)
                 .withSelection(testSelection)
                 .withStake(testStake)
+                .withTimestamp(timestamp)
                 .build();
 
         assertNotNull(testBet);
@@ -39,6 +43,7 @@ public class BetTest {
         assertEquals(testLocation, testBet.getLocation());
         assertEquals(testSelection, testBet.getSelection());
         assertEquals(testStake, testBet.getStake());
+        assertEquals(timestamp, testBet.getTimestamp());
     }
 
 }

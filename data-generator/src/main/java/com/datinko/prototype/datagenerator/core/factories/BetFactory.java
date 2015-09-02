@@ -5,7 +5,9 @@ import com.datinko.prototype.datagenerator.core.Customer;
 import com.datinko.prototype.datagenerator.core.Location;
 import com.datinko.prototype.datagenerator.core.Selection;
 import org.joda.money.Money;
+import org.joda.time.DateTime;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -14,6 +16,10 @@ import java.util.UUID;
 public class BetFactory {
 
     public static Bet getBobSmithBetting20OnMiddlesbroughToWinFromLeedsMerrion() {
+        return BetFactory.getBobSmithBetting20OnMiddlesbroughToWinFromLeedsMerrion(DateTime.now());
+    }
+
+    public static Bet getBobSmithBetting20OnMiddlesbroughToWinFromLeedsMerrion(DateTime timestamp) {
 
         UUID id = UUID.randomUUID();
         Customer testCustomer = CustomerFactory.getBobSmith();
@@ -27,12 +33,17 @@ public class BetFactory {
                 .withLocation(testLocation)
                 .withSelection(testSelection)
                 .withStake(testStake)
+                .withTimestamp(timestamp)
                 .build();
 
         return bet;
     }
 
     public static Bet getAmyBrownBetting10OnMiddlesbroughToWinFromLeedsMerrion() {
+        return BetFactory.getAmyBrownBetting10OnMiddlesbroughToWinFromLeedsMerrion(DateTime.now());
+    }
+
+    public static Bet getAmyBrownBetting10OnMiddlesbroughToWinFromLeedsMerrion(DateTime timestamp) {
 
         UUID id = UUID.randomUUID();
         Customer testCustomer = CustomerFactory.getAmyBrown();
@@ -46,12 +57,18 @@ public class BetFactory {
                 .withLocation(testLocation)
                 .withSelection(testSelection)
                 .withStake(testStake)
+                .withTimestamp(timestamp)
                 .build();
 
         return bet;
     }
 
     public static Bet getEveWhitworthBetting5OnMiddlesbroughToWinFromLeedsMerrion() {
+
+        return getEveWhitworthBetting5OnMiddlesbroughToWinFromLeedsMerrion(DateTime.now());
+    }
+
+    public static Bet getEveWhitworthBetting5OnMiddlesbroughToWinFromLeedsMerrion(DateTime timestamp) {
 
         UUID id = UUID.randomUUID();
         Customer testCustomer = CustomerFactory.getEveWhitworth();
@@ -65,6 +82,7 @@ public class BetFactory {
                 .withLocation(testLocation)
                 .withSelection(testSelection)
                 .withStake(testStake)
+                .withTimestamp(timestamp)
                 .build();
 
         return bet;

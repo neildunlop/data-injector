@@ -22,9 +22,9 @@ public class DemoFirer {
 
     public static void main(String[] args) throws InterruptedException {
 
-        bets.add(BetFactory.getBet1());
-        bets.add(BetFactory.getBet2());
-        bets.add(BetFactory.getBet3());
+        bets.add(BetFactory.getAmyBrownBetting10OnMiddlesbroughToWinFromLeedsMerrion());
+        bets.add(BetFactory.getBobSmithBetting20OnMiddlesbroughToWinFromLeedsMerrion());
+        bets.add(BetFactory.getEveWhitworthBetting5OnMiddlesbroughToWinFromLeedsMerrion());
 
         DemoFirer firer = new DemoFirer();
         firer.fireEvents();
