@@ -1,8 +1,12 @@
 package com.datinko.prototype.datagenerator.core;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Simple representation of a Market.
@@ -12,7 +16,9 @@ public class Market {
     protected final UUID id;
     protected final String name;
     protected final Event event;
-    protected Collection<Selection> selections;
+
+    @JsonProperty("selections")
+    protected List<Selection> selections;
 
     public UUID getId() {
         return id;
@@ -26,8 +32,32 @@ public class Market {
         return event;
     }
 
-    public Collection<Selection> getSelections() {
-        return Collections.unmodifiableCollection(selections);
+    @JsonIgnore
+    public List<Selection> getSelections() {
+        return Collections.unmodifiableList(selections);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Market market = (Market) o;
+
+        if (!id.equals(market.id)) return false;
+        if (name != null ? !name.equals(market.name) : market.name != null) return false;
+        if (event != null ? !event.equals(market.event) : market.event != null) return false;
+        return !(selections != null ? !selections.equals(market.selections) : market.selections != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (event != null ? event.hashCode() : 0);
+        result = 31 * result + (selections != null ? selections.hashCode() : 0);
+        return result;
     }
 
     private Market(Builder builder) {
@@ -36,6 +66,8 @@ public class Market {
         event = builder.event;
         selections = builder.selections;
     }
+
+
 
     public static Builder newBuilder() {
         return new Builder();
@@ -54,7 +86,7 @@ public class Market {
         private UUID id;
         private String name;
         private Event event;
-        private Collection<Selection> selections;
+        private List<Selection> selections = new ArrayList<>();
 
         private Builder() {
         }
@@ -74,7 +106,7 @@ public class Market {
             return this;
         }
 
-        public Builder withSelections(Collection<Selection> val) {
+        public Builder withSelections(List<Selection> val) {
             selections = val;
             return this;
         }

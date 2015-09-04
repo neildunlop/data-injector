@@ -1,8 +1,14 @@
 package com.datinko.prototype.datagenerator.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Simple representation of an Event.
@@ -11,7 +17,8 @@ public class Event {
 
     protected final UUID id;
     protected final String name;
-    protected Collection<Market> markets;
+    @JsonProperty("markets")
+    protected List<Market> markets;
 
     public UUID getId() {
         return id;
@@ -21,8 +28,9 @@ public class Event {
         return name;
     }
 
-    public Collection<Market> getMarkets() {
-        return Collections.unmodifiableCollection(markets);
+    @JsonIgnore
+    public List<Market> getMarkets() {
+        return Collections.unmodifiableList(markets);
     }
 
     private Event(Builder builder) {
@@ -47,7 +55,7 @@ public class Event {
     public static final class Builder {
         private UUID id;
         private String name;
-        private Collection<Market> markets;
+        private List<Market> markets = new ArrayList<>();
 
         private Builder() {
         }
@@ -62,13 +70,21 @@ public class Event {
             return this;
         }
 
-        public Builder withMarkets(Collection<Market> val) {
+        public Builder withMarkets(List<Market> val) {
             markets = val;
+
             return this;
         }
 
         public Event build() {
-            return new Event(this);
+            Event event = new Event(this);
+            List<Market> updatedMarkets = new ArrayList<>();
+            for(Market market : markets) {
+                market = Market.newBuilder(market).withEvent(event).build();
+                updatedMarkets.add(market);
+            }
+            event.markets = updatedMarkets;
+            return event;
         }
     }
 }

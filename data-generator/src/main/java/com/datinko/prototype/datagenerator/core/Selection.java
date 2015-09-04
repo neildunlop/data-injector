@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Simple representation of what the customer bet on.
  */
@@ -13,6 +16,8 @@ public class Selection {
     protected final String selectionValue;
     protected final String price;
     protected final Market market;
+
+    @JsonProperty("bets")
     protected final Collection<Bet> bets;
 
     public UUID getId() {
@@ -31,6 +36,7 @@ public class Selection {
         return market;
     }
 
+    @JsonIgnore
     public Collection<Bet> getBets() {
         return Collections.unmodifiableCollection(bets);
     }

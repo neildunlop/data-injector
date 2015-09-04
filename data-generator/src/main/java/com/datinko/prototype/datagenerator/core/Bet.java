@@ -14,7 +14,7 @@ public class Bet {
     protected final DateTime timestamp;
     protected final Customer customer;
     protected final Location location;
-    protected final Selection selection;
+    protected Selection selection;
     protected final Money stake;
 
     public UUID getId() {
@@ -40,6 +40,7 @@ public class Bet {
     public Money getStake() {
         return stake;
     }
+
 
     private Bet(Builder builder) {
         id = builder.id;
@@ -111,12 +112,7 @@ public class Bet {
         }
     }
 
+    //should implement a copy method so we can update properties?
 
-    //When
-    //Who
-    //Where
-    //On What
-    //How Much
-    //Which Channel
 
 }
