@@ -11,5 +11,13 @@
 
     <artifactId>datagenerator</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.8.2.0</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

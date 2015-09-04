@@ -17,7 +17,8 @@ public class Market {
     protected final String name;
     protected final Event event;
 
-    @JsonProperty("selections")
+    //@JsonProperty("selections")
+    @JsonIgnore
     protected List<Selection> selections;
 
     public UUID getId() {
@@ -112,7 +113,16 @@ public class Market {
         }
 
         public Market build() {
-            return new Market(this);
+
+            Market market = new Market(this);
+
+            List<Selection> updatedSelections = new ArrayList<>();
+            for(Selection selection : selections) {
+                selection = Selection.newBuilder(selection).withMarket(market).build();
+                updatedSelections.add(selection);
+            }
+            market.selections = updatedSelections;
+            return market;
         }
     }
 }

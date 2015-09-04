@@ -21,7 +21,7 @@ public class SelectionFactory {
         Selection result = Selection.newBuilder()
                 .withId(id)
                 .withMarket(market)
-                .withName(name)
+                .withSelectionValue(name)
                 .withPrice(price)
                 .build();
 
@@ -39,7 +39,7 @@ public class SelectionFactory {
         Selection result = Selection.newBuilder()
                 .withId(id)
                 .withMarket(market)
-                .withName(name)
+                .withSelectionValue(name)
                 .withPrice(price)
                 .build();
 

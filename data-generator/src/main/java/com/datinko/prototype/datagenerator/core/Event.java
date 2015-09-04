@@ -17,7 +17,8 @@ public class Event {
 
     protected final UUID id;
     protected final String name;
-    @JsonProperty("markets")
+    //@JsonProperty("markets")
+    @JsonIgnore
     protected List<Market> markets;
 
     public UUID getId() {

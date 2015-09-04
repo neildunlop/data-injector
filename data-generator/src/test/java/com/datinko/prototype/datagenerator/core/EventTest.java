@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.datinko.prototype.datagenerator.core.factories.EventFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterables;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -92,4 +94,33 @@ public class EventTest {
         assertEquals(testMarket.getSelections(), updatedEvent.getMarkets().get(0).getSelections());
         assertEquals(updatedEvent, updatedEvent.getMarkets().get(0).getEvent());
     }
+
+    @Test
+    public void canSerializeEvent() throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        UUID id = UUID.randomUUID();
+        String name = "Middlesbrough Vs Newcastle";
+        Market testMarket = Market.newBuilder()
+                .withId(id)
+                .withName(name)
+                .build();
+
+        List<Market> markets = new ArrayList<>();
+        markets.add(testMarket);
+
+        Event testEvent = Event.newBuilder()
+                .withId(id)
+                .withName(name)
+                .withMarkets(markets)
+                .build();
+
+        String result = mapper.writeValueAsString(testEvent);
+
+        assertNotNull(result);
+
+
+    }
+
 }

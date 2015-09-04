@@ -1,8 +1,6 @@
 package com.datinko.prototype.datagenerator.core;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,8 +15,9 @@ public class Selection {
     protected final String price;
     protected final Market market;
 
-    @JsonProperty("bets")
-    protected final Collection<Bet> bets;
+    //@JsonProperty("bets")
+    @JsonIgnore
+    protected List<Bet> bets;
 
     public UUID getId() {
         return id;
@@ -37,8 +36,8 @@ public class Selection {
     }
 
     @JsonIgnore
-    public Collection<Bet> getBets() {
-        return Collections.unmodifiableCollection(bets);
+    public List<Bet> getBets() {
+        return Collections.unmodifiableList(bets);
     }
 
     private Selection(Builder builder) {
@@ -69,7 +68,7 @@ public class Selection {
         private String selectionValue;
         private String price;
         private Market market;
-        private Collection<Bet> bets;
+        private List<Bet> bets = new ArrayList<>();
 
         private Builder() {
         }
@@ -79,7 +78,7 @@ public class Selection {
             return this;
         }
 
-        public Builder withName(String val) {
+        public Builder withSelectionValue(String val) {
             selectionValue = val;
             return this;
         }
@@ -94,13 +93,22 @@ public class Selection {
             return this;
         }
 
-        public Builder withBets(Collection<Bet> val) {
+        public Builder withBets(List<Bet> val) {
             bets = val;
             return this;
         }
 
         public Selection build() {
-            return new Selection(this);
+
+            Selection selection = new Selection(this);
+
+            List<Bet> updatedBets = new ArrayList<>();
+            for(Bet bet : bets) {
+                bet = Bet.newBuilder(bet).withSelection(selection).build();
+                updatedBets.add(bet);
+            }
+            selection.bets = updatedBets;
+            return selection;
         }
     }
 }
