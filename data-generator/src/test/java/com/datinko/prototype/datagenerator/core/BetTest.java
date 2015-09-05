@@ -9,8 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import junit.framework.TestCase;
 import org.joda.money.Money;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -31,7 +29,7 @@ public class BetTest {
         UUID id = UUID.randomUUID();
         Customer testCustomer = CustomerFactory.getBobSmith();
         Location testLocation = LocationFactory.getWHLeedsMerrion();
-        Selection testSelection = SelectionFactory.getMiddlesbroughToWin();
+        Selection testSelection = SelectionFactory.getBristolToWin();
         Money testStake = Money.parse("GBP 20");
         DateTime timestamp = DateTime.now();
 
@@ -59,7 +57,7 @@ public class BetTest {
         UUID id = UUID.randomUUID();
         Customer testCustomer = CustomerFactory.getBobSmith();
         Location testLocation = LocationFactory.getWHLeedsMerrion();
-        Selection testSelection = SelectionFactory.getMiddlesbroughToWin();
+        Selection testSelection = SelectionFactory.getDerbyToWin();
         Money testStake1 = Money.parse("GBP 20");
         Money testStake2 = Money.parse("GBP 30");
         DateTime timestamp = DateTime.now();
