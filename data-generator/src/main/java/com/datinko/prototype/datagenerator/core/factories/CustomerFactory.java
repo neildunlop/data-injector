@@ -9,6 +9,19 @@ import java.util.UUID;
  */
 public class CustomerFactory {
 
+    public static Customer getAnonymous() {
+
+        UUID id = UUID.fromString(UUID.randomUUID().toString());
+        String name = "Anonymous";
+
+        Customer customer = Customer.newBuilder()
+                .withId(id)
+                .withName(name)
+                .build();
+
+        return customer;
+    }
+
     public static Customer getBobSmith() {
 
         UUID id = UUID.fromString("caff853f-3a50-412c-a5fa-23551c22b3fd");

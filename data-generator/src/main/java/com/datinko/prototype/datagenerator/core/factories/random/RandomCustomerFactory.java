@@ -28,9 +28,14 @@ public class RandomCustomerFactory {
         this.customers.add(CustomerFactory.getTonyGold());
     }
 
-    public Customer getRandomCustomer() {
+    public Customer getKnownRandomCustomer() {
 
         int index = rand.nextInt(customers.size() - 1);
         return customers.get(index);
+    }
+
+    public Customer getAnonymousCustomer() {
+
+        return CustomerFactory.getAnonymous();
     }
 }

@@ -7,7 +7,6 @@ import com.datinko.prototype.datagenerator.core.Selection;
 import org.joda.money.Money;
 import org.joda.time.DateTime;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**

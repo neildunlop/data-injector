@@ -58,7 +58,7 @@ public class LocationFactory {
 
     public static Location getWHLeedsCrossgates() {
 
-        UUID id = UUID.fromString("a79ba50c-5c5b-44bc-8b3d-4d8b706b24d1 ");
+        UUID id = UUID.fromString("a79ba50c-5c5b-44bc-8b3d-4d8b706b24d1");
         String address = "H-K Crossgates Shopping Centre, Leeds LS15 8EU";
         ChannelType channelType = ChannelType.RETAIL;
 

@@ -20,7 +20,7 @@ public class MarketTest {
     public void canCreateMarket() {
 
         UUID id = UUID.randomUUID();
-        Event event = EventFactory.getMiddlesbroughVsNewcastle();
+        Event event = EventFactory.getMiddlesbroughVsHull();
         String name = "To Win";
 
         Market testMarket = Market.newBuilder()

@@ -24,7 +24,7 @@ public class SelectionTest {
     public void canCreateSelection() {
 
         UUID id = UUID.randomUUID();
-        Market market = MarketFactory.getToWin();
+        Market market = MarketFactory.getMiddlesbroughHullToWin();
         String selectionValue = "Middlesbrough";
         String price = "2/1";
 
@@ -63,7 +63,7 @@ public class SelectionTest {
         bets.add(testBet);
 
         UUID selectionId = UUID.randomUUID();
-        Market market = MarketFactory.getToWin();
+        Market market = MarketFactory.getMiddlesbroughHullToWin();
         String selectionValue = "Middlesbrough";
         String price = "2/1";
 
@@ -109,7 +109,7 @@ public class SelectionTest {
 
 
         UUID selectionId = UUID.randomUUID();
-        Market market = MarketFactory.getToWin();
+        Market market = MarketFactory.getMiddlesbroughHullToWin();
         String selectionValue = "Middlesbrough";
         String price = "2/1";
 
