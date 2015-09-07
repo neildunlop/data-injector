@@ -74,4 +74,32 @@ public class RandomBetFactory {
 
         return randomBet;
     }
+
+    public Bet generateKnownRandomCustomerHighValueBet(DateTime timestamp) {
+
+        Bet randomBet = Bet.newBuilder()
+                .withCustomer(randomCustomerFactory.getKnownRandomCustomer())
+                .withId(UUID.randomUUID())
+                .withLocation(randomLocationFactory.getRandomLocation())
+                .withSelection(randomSelectionFactory.getRandomSelection())
+                .withStake(randomStakeFactory.getRandomStake())
+                .withTimestamp(timestamp)
+                .build();
+
+        return randomBet;
+    }
+
+    public Bet generateRandomAnonymousOnlineLowValueBet(DateTime timestamp) {
+
+        Bet randomBet = Bet.newBuilder()
+                .withCustomer(randomCustomerFactory.getAnonymousCustomer())
+                .withId(UUID.randomUUID())
+                .withLocation(randomLocationFactory.getRandomOnlineOrMobileLocation())
+                .withSelection(randomSelectionFactory.getRandomSelection())
+                .withStake(randomStakeFactory.getRandomLowValueStake())
+                .withTimestamp(timestamp)
+                .build();
+
+        return randomBet;
+    }
 }

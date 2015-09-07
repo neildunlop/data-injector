@@ -24,6 +24,7 @@ public class DataGenerator {
 
     protected ObjectMapper mapper = new ObjectMapper();
     protected RandomBetFactory randomBetFactory = new RandomBetFactory();
+    protected Random rand = new Random();
 
 
     public DataGenerator() {
@@ -43,7 +44,7 @@ public class DataGenerator {
         DateTime timestamp = DateTime.now();
 
         List<Bet> bets = new ArrayList<>();
-        for(int i=0; i<numberOfBetsToGenerate; i++) {
+        for (int i = 0; i < numberOfBetsToGenerate; i++) {
             int millisecondBetSpacing = rand.nextInt(maxMsBetSpacing) + minMsBetSpacing;
             timestamp = timestamp.plusMillis(millisecondBetSpacing);
             Bet bet = randomBetFactory.generateRandomBet(timestamp);
@@ -57,35 +58,73 @@ public class DataGenerator {
 
     public List<Bet> generatePseudoRandomBets(int numberOfBetsToGenerate, int maxMsBetSpacing, int minMsBetSpacing) throws JsonProcessingException {
 
-        Random rand = new Random();
         DateTime timestamp = DateTime.now();
 
+        //we use this to weight the number of bets of each type created:
+        // 60% anonymous retail
+        // 25% anonymous online or mobile
+        // 15% identified customer bets  (will probably used identified customers as our scenario data)
         int anonymousRetailPercentage = 60;
         int anonymousOnlineAndMobilePercentage = 85;
         int identifiedCustomer = 100;
         List<Bet> bets = new ArrayList<>();
 
-        for(int i=0; i<numberOfBetsToGenerate; i++) {
+        for (int i = 0; i < numberOfBetsToGenerate; i++) {
             Bet bet = null;
 
             int millisecondBetSpacing = rand.nextInt(maxMsBetSpacing) + minMsBetSpacing;
             timestamp = timestamp.plusMillis(millisecondBetSpacing);
 
             int typeOfBet = rand.nextInt(100);
-            if(typeOfBet <= anonymousRetailPercentage) {
+            if (typeOfBet <= anonymousRetailPercentage) {
                 bet = randomBetFactory.generateAnonymousRetailRandomBet(timestamp);
-            }
-            else if(typeOfBet <= anonymousOnlineAndMobilePercentage) {
+            } else if (typeOfBet <= anonymousOnlineAndMobilePercentage) {
                 bet = randomBetFactory.generateAnonymousOnlineOrMobileRandomBet(timestamp);
-            }
-            else if(typeOfBet <= identifiedCustomer) {
+            } else if (typeOfBet <= identifiedCustomer) {
                 bet = randomBetFactory.generateRandomBet(timestamp);
             }
             bets.add(bet);
             System.out.println(mapper.writeValueAsString(bet));
         }
-
         return bets;
+    }
+
+    public List<Bet> generateRandomKnownCustomerHighValueBets(int numberOfBetsToGenerate, int maxMsBetSpacing, int minMsBetSpacing) throws JsonProcessingException {
+
+        DateTime timestamp = DateTime.now();
+
+        List<Bet> bets = new ArrayList<>();
+
+        for (int i = 0; i < numberOfBetsToGenerate; i++) {
+            int millisecondBetSpacing = rand.nextInt(maxMsBetSpacing) + minMsBetSpacing;
+            timestamp = timestamp.plusMillis(millisecondBetSpacing);
+
+            Bet bet = randomBetFactory.generateKnownRandomCustomerHighValueBet(timestamp);
+
+            bets.add(bet);
+            System.out.println(mapper.writeValueAsString(bet));
+        }
+        return bets;
+    }
+
+    public List<Bet> generateRandomAnonymousLowValueHighFrequencyBets(int numberOfBetsToGenerate, int maxMsBetSpacing, int minMsBetSpacing) throws JsonProcessingException {
+
+        //TODO: Hard code the min and max bet spacing so that lots of small bets are created quickly
+        DateTime timestamp = DateTime.now();
+
+        List<Bet> bets = new ArrayList<>();
+
+        for (int i = 0; i < numberOfBetsToGenerate; i++) {
+            int millisecondBetSpacing = rand.nextInt(maxMsBetSpacing) + minMsBetSpacing;
+            timestamp = timestamp.plusMillis(millisecondBetSpacing);
+
+            Bet bet = randomBetFactory.generateRandomAnonymousLowValueBet(timestamp);
+
+            bets.add(bet);
+            System.out.println(mapper.writeValueAsString(bet));
+        }
+        return bets;
+
     }
 
 }
